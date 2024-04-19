@@ -33,6 +33,8 @@ export const createApp = async () => {
   app.use(express.json());
   app.use(cors());
 
+  const test = 0;
+
   app.post(
     "/service",
     joiBodyValidator(joiServiceSchema),
