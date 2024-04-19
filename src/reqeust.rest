@@ -1,0 +1,46 @@
+GET http://localhost:3000/
+
+### 
+
+
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "email": "e@eeweeeeeee.com",
+    "name": "admin",
+    "password": "123456"
+}
+###
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "email": "email@emailll.com",
+    "password": "adminmmm"
+}
+###
+
+GET http://localhost:3000/hidden
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsIiwiaWF0IjoxNjk3MjgyODI5fQ.wXJ7pZW0I-KCnaLnjaNr_KRBseKTu0ovSt9wqDDlq1I
+Content-Type: application/json
+
+
+###
+POST http://localhost:3000/token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGVtYWFpbC5zcyIsImlhdCI6MTY5NzM4Mjg2OX0.rtwW9JKuDrjUP7aUrOUEPsIHwwjpYL--UcpN3h9xcSg"
+}
+
+###
+
+POST http://localhost:3000/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiZW1haWxAZW1hYWlsLnNzIiwiaWF0IjoxNjk3MzgyODY5fSwiaWF0IjoxNjk3NDk0MjUxLCJleHAiOjE2OTc0OTUxNTF9.3y_u1GN2cPPZy-t2_0nMDHzKGLSlX0DZfe6xlH4i5TA
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImVtYWlsQGVtYWlsbGwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkNHgydWdIdWxmVVVhRTFQSVFTL3J2ZXlySW82QnhkWm1uNzJ2LnFvam9CVXYuQjkzMXE2NHkifSwiaWF0IjoxNjk3NDk0MzM3fQ.Kz04fKwcPAXLZiQCfeAx5yO1dbReD-_nbIuQDkDx6Yg"
+
+}
