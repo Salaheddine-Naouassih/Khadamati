@@ -1,7 +1,8 @@
 import * as jwt from "jsonwebtoken";
 import { getConfig } from "../utils/config";
 import { Request, Response, NextFunction } from "express";
-import { func } from "joi";
+import { AppDataSource } from "../data-source";
+import { BuisnessUser, User } from "../entity/User";
 
 export interface CustomRequest extends Request {
   user: {
@@ -24,24 +25,30 @@ function authenticateToken(
       console.log(err);
       return res.sendStatus(403);
     }
-    req.user = user as { email: string };
+    req.user = user as { email: string; id: number };
     next();
   });
 }
 
-function validateBuisness(
+async function validateBuisness(
   req: CustomRequest,
   res: Response,
   next: NextFunction
 ) {
-  const user = req.user;
-  const isBusinessUser = this.buisnessUserRepository.findOne({
-    where: { userId: user.id },
+  const userRepository = AppDataSource.getRepository(User);
+  const buisnessUserRepository = AppDataSource.getRepository(BuisnessUser);
+  const userExists = await userRepository.findOne({
+    where: { email: req.user.email },
   });
-
+  const isBusinessUser = await buisnessUserRepository.findOne({
+    where: { userId: userExists["id"] },
+  });
   if (!isBusinessUser) {
-    return res.status(403).json({ message: "User is not a business user" });
+    return res
+      .status(403)
+      .json({ message: "Account not registered as a buisness" });
   }
+  req.user = { email: req.user.email, id: userExists["id"] };
   next();
 }
 export { authenticateToken, validateBuisness };

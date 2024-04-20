@@ -1,26 +1,28 @@
 import { Response, Request } from "express";
 import { Repository } from "typeorm";
 import { Service } from "../entity/Service";
+import { CustomRequest } from "../middlewares/authMiddleware";
 
 export class ServiceController {
   constructor(private serviceRepository: Repository<Service>) {
     this.serviceRepository = serviceRepository;
   }
 
-  async createService(req: Request, res: Response) {
+  async createService(req: CustomRequest, res: Response) {
     const { name, description, price, city_id } = req.body;
+    const user = req.user;
     const serviceExists = await this.serviceRepository.findOne({
       where: { name },
     });
     if (serviceExists)
       return res.status(400).json({ message: "Service already exists" });
-    const service = this.serviceRepository.create({
-      name,
-      description,
-      price,
-      city_id,
+    await this.serviceRepository.insert({
+      name: name,
+      description: description,
+      price: price,
+      city_id: city_id,
+      buisnessUserId: user.id,
     });
-    await this.serviceRepository.save(service);
 
     res.json({
       message: "Service created",

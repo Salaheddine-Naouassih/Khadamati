@@ -15,7 +15,7 @@ import { Interface } from "readline";
 
 @Entity()
 export class Service {
-  @ManyToOne(() => BuisnessUser)
+  @ManyToOne(() => BuisnessUser, { onDelete: "CASCADE" })
   @JoinColumn()
   buisness: BuisnessUser;
   @Column()

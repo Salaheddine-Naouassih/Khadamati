@@ -7,7 +7,10 @@ import {
   joiRefreshTokenSchema,
   joiBuisnessUserSchema,
 } from "../middlewares/Joi";
-import { authenticateToken } from "../middlewares/authMiddleware";
+import {
+  authenticateToken,
+  validateBuisness,
+} from "../middlewares/authMiddleware";
 import { UserController } from "../controllers/userController";
 import { User, BuisnessUser } from "../entity/User";
 import { RefreshToken } from "../entity/RefreshToken";
@@ -58,6 +61,7 @@ router.post(
 router.delete(
   "/buisness/remove",
   authenticateToken,
+  validateBuisness,
   userController.removeBuisness.bind(userController)
 );
 

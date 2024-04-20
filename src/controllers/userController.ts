@@ -59,19 +59,8 @@ export class UserController {
   }
 
   async removeBuisness(req: CustomRequest, res: Response) {
-    const user = req.user;
-    const userExists = await this.userRepository.findOne({
-      where: { email: user.email },
-    });
-    if (!userExists) return res.status(400).json({ message: "User not found" });
-    const buisnessUserExists = await this.buisnessUserRepository.findOne({
-      where: { userId: userExists.id },
-    });
-    if (!buisnessUserExists)
-      return res
-        .status(400)
-        .json({ message: "Account not registered as a buisness" });
-    await this.buisnessUserRepository.delete({ userId: userExists.id });
+    const id = req.user.id;
+    await this.buisnessUserRepository.delete({ userId: id });
     res.json({ message: "Buisness account removed" });
   }
 
