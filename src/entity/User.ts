@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import Joi = require("joi");
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+  PrimaryColumn,
+} from "typeorm";
 
 @Entity()
 export class User {
@@ -18,7 +27,17 @@ export class User {
   rating: number;
 }
 @Entity()
-export class BuisnessUser extends User {
+export class BuisnessUser {
+  @OneToOne(() => User)
+  @JoinColumn()
+  user: User;
+
+  @PrimaryColumn()
+  userId: number;
+
   @Column()
-  buisnessName: string;
+  contactNumber: string;
+
+  @Column()
+  address: string;
 }

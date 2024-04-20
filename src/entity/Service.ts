@@ -5,13 +5,23 @@ import {
   ManyToMany,
   OneToOne,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
+  Generated,
+  PrimaryColumn,
 } from "typeorm";
-import { User } from "./User";
+import { BuisnessUser } from "./User";
 import { Interface } from "readline";
 
 @Entity()
 export class Service {
-  @PrimaryGeneratedColumn()
+  @ManyToOne(() => BuisnessUser)
+  @JoinColumn()
+  buisness: BuisnessUser;
+  @Column()
+  buisnessUserId: number;
+
+  @PrimaryGeneratedColumn("uuid")
   id: number;
 
   @Column()

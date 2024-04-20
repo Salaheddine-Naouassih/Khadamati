@@ -27,6 +27,11 @@ const joiLoginSchema = Joi.object({
   password: Joi.string().min(6).required(),
 });
 
+const joiBuisnessUserSchema = Joi.object({
+  contactNumber: Joi.string().required(),
+  address: Joi.string().required(),
+});
+
 const joiServiceSchema = Joi.object({
   name: Joi.string().min(6).required(),
   description: Joi.string().min(12).required(),
@@ -42,4 +47,5 @@ export {
   joiLoginSchema,
   joiRefreshTokenSchema,
   joiServiceSchema,
+  joiBuisnessUserSchema,
 };

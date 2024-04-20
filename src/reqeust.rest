@@ -7,7 +7,7 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "email": "e@eeweeeeeee.com",
+    "email": "e@salah.com",
     "name": "admin",
     "password": "123456"
 }
@@ -41,6 +41,5 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImVtYWlsIjoiZW1haWxAZW1hYWlsLnNzIiwiaWF0IjoxNjk3MzgyODY5fSwiaWF0IjoxNjk3NDk0MjUxLCJleHAiOjE2OTc0OTUxNTF9.3y_u1GN2cPPZy-t2_0nMDHzKGLSlX0DZfe6xlH4i5TA
 
 {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjozLCJuYW1lIjoiYWRtaW4iLCJlbWFpbCI6ImVtYWlsQGVtYWlsbGwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkNHgydWdIdWxmVVVhRTFQSVFTL3J2ZXlySW82QnhkWm1uNzJ2LnFvam9CVXYuQjkzMXE2NHkifSwiaWF0IjoxNjk3NDk0MzM3fQ.Kz04fKwcPAXLZiQCfeAx5yO1dbReD-_nbIuQDkDx6Yg"
-
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZUBzYWxhaC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQ2bUNxaklpWjJOdXh3OUR0M3dWaHB1TnFHSllESGVuV3Npd1o5d2wvUlEyblc0anlLaDBueSIsImlkIjoyLCJyYXRpbmciOjB9LCJpYXQiOjE3MTM1MTYzMTAsImV4cCI6MTcxMzUxNzIxMH0.JzzPZq_fKhu6YjrEoLKTJI5otXVerlkYy71k_xxe2bk"
 }
