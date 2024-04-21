@@ -30,21 +30,18 @@ export class UserController {
       password: hashedPassword,
     });
     await this.userRepository.save(user);
-
+    console.log(user);
     res.json({
-      ...(await this.generateAuthTokens(user, res)),
+      ...(await this.generateAuthTokens(user)),
       message: "User created",
     });
   }
 
   async registerBuisnsess(req: CustomRequest, res: Response) {
     const user = req.user;
-    const userExists = await this.userRepository.findOne({
-      where: { email: user.email },
-    });
-    if (!userExists) return res.status(400).json({ message: "User not found" });
+
     const buisnessUserExists = await this.buisnessUserRepository.findOne({
-      where: { userId: userExists.id },
+      where: { user },
     });
     if (buisnessUserExists)
       return res
@@ -53,14 +50,14 @@ export class UserController {
     await this.buisnessUserRepository.insert({
       contactNumber: req.body.contactNumber,
       address: req.body.address,
-      userId: userExists.id,
+      user,
     });
     res.json({ message: "Account registered as a buisness" });
   }
 
   async removeBuisness(req: CustomRequest, res: Response) {
     const id = req.user.id;
-    await this.buisnessUserRepository.delete({ userId: id });
+    await this.buisnessUserRepository.delete({ user: { id } });
     res.json({ message: "Buisness account removed" });
   }
 
@@ -86,14 +83,13 @@ export class UserController {
     );
   }
 
-  private async generateAuthTokens(user: User, res?: Response) {
+  private async generateAuthTokens(user: User) {
     const { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } = getConfig();
     const refreshToken = jwt.sign({ user }, REFRESH_TOKEN_SECRET);
     await this.refreshTokenRepository.save({ token: refreshToken });
     const accessToken = jwt.sign({ user }, ACCESS_TOKEN_SECRET, {
       expiresIn: "15m",
     });
-
     return { accessToken, refreshToken };
   }
 
@@ -105,7 +101,7 @@ export class UserController {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword)
       return res.status(400).json({ message: "Invalid password" });
-    res.json(await this.generateAuthTokens(user, res));
+    res.json(await this.generateAuthTokens(user));
   }
 
   async logout(req: CustomRequest, res: Response) {

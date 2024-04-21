@@ -32,8 +32,8 @@ export class BuisnessUser {
   @JoinColumn()
   user: User;
 
-  @PrimaryColumn()
-  userId: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   contactNumber: string;

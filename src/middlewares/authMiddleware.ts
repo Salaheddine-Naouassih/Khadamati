@@ -9,6 +9,7 @@ export interface CustomRequest extends Request {
     email: string;
     id?: number;
   };
+  buisness?: BuisnessUser;
 }
 
 function authenticateToken(
@@ -35,20 +36,16 @@ async function validateBuisness(
   res: Response,
   next: NextFunction
 ) {
-  const userRepository = AppDataSource.getRepository(User);
   const buisnessUserRepository = AppDataSource.getRepository(BuisnessUser);
-  const userExists = await userRepository.findOne({
-    where: { email: req.user.email },
-  });
   const isBusinessUser = await buisnessUserRepository.findOne({
-    where: { userId: userExists["id"] },
+    where: { user: { id: req.user.id } },
   });
   if (!isBusinessUser) {
     return res
       .status(403)
       .json({ message: "Account not registered as a buisness" });
   }
-  req.user = { email: req.user.email, id: userExists["id"] };
+  req.buisness = isBusinessUser;
   next();
 }
 export { authenticateToken, validateBuisness };
