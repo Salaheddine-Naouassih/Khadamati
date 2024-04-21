@@ -29,7 +29,6 @@ const userController = new UserController(
 router.post(
   "/register",
   joiBodyValidator(joiSignupSchema),
-  authenticateToken,
   userController.register.bind(userController)
 );
 

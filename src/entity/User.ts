@@ -28,7 +28,7 @@ export class User {
 }
 @Entity()
 export class BuisnessUser {
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: "CASCADE" })
   @JoinColumn()
   user: User;
 
